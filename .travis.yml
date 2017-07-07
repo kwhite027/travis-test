@@ -1,28 +1,40 @@
 language: android
+
 # Use the Travis Container-Based Infrastructure
 sudo: false
 
+jdk:
+  - oraclejdk8
+
 env:
   global:
-    - ANDROID_API_LEVEL=25
-    - EMULATOR_API_LEVEL=23
     - ANDROID_BUILD_TOOLS_VERSION=25.0.2
-    - ANDROID_ABI=x86
-    - ANDROID_TAG=google_apis
-    - ADB_INSTALL_TIMEOUT=20 # minutes (2 minutes by default)
+    - ADB_INSTALL_TIMEOUT=20 # install timeout in minutes (2 minutes by default)
+  matrix:
+    - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
 
 android:
   components:
-    # Specify at least one system image
-    - sys-img-x86-google_apis-$EMULATOR_API_LEVEL
+    - tools # to get the new `repository-11.xml`
+    - tools # to install new Android SDK tools
+    - platform-tools
+    - build-tools-$ANDROID_BUILD_TOOLS_VERSION
+    - $ANDROID_TARGET
+    - android-25
 
-# Emulator Management: Create, Start and Wait
+    # Support library
+    - extra-android-support
+    - extra-android-m2repository
+
+    # System images
+    - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
+
 before_script:
-  - android list targets
-  - echo no | android create avd --force -n test -t android-23 --abi $ANDROID_ABI --tag $ANDROID_TAG
+  - chmod +x ./gradlew
+  # Emulator Management: Create, Start and Wait
+  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-audio -no-window &
-  - travis_wait android-wait-for-emulator
-  - adb shell input keyevent 82 &
+  - android-wait-for-emulator
 
 script:
   - ./gradlew build connectedCheck
