@@ -1,5 +1,4 @@
 language: android
-jdk: oraclejdk8
 # Use the Travis Container-Based Infrastructure
 sudo: false
 
@@ -14,22 +13,6 @@ env:
 
 android:
   components:
-    - tools # to get the new `repository-11.xml`
-    - platform-tools
-    - tools # to install Android SDK tools 25.1.x
-    - build-tools-$ANDROID_BUILD_TOOLS_VERSION
-    - android-$ANDROID_API_LEVEL
-    - android-$EMULATOR_API_LEVEL
-    # For Google APIs
-    - addon-google_apis-google-$ANDROID_API_LEVEL
-    - addon-google_apis-google-$EMULATOR_API_LEVEL
-    # Google Play Services
-    - extra-google-google_play_services
-    # Support library
-    #- extra-android-support
-    # Latest artifacts in local repository
-    - extra-google-m2repository
-    - extra-android-m2repository
     # Specify at least one system image
     - sys-img-armeabi-v7a-google_apis-$EMULATOR_API_LEVEL
 
