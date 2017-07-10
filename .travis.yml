@@ -23,8 +23,8 @@ android:
     - android-25
 
     # Support library
-    - extra-android-support
-    - extra-android-m2repository
+    #- extra-android-support
+    #- extra-android-m2repository
 
     # System images
     - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
