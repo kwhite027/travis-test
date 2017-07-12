@@ -42,6 +42,6 @@ script:
   - ./gradlew build && android-wait-for-emulator
   - ./gradlew connectedCheck
   
-  notifications:
+notifications:
   email:
     - kyle.white@wearehathway.com
