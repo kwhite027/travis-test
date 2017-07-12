@@ -16,8 +16,8 @@ env:
 android:
   components:
     - tools # to get the new `repository-11.xml`
-    - tools # to install new Android SDK tools
     - platform-tools
+    - tools # to install new Android SDK tools
     - build-tools-$ANDROID_BUILD_TOOLS_VERSION
     - $ANDROID_TARGET
     - android-25
